@@ -25,6 +25,22 @@ export const navLinks = [
 
 export const projects = [
   {
+    id: 'selfrate',
+    title: 'SelfRate',
+    blurb: 'Personal calorie tracking web app',
+    tools: 'React · PWA · MongoDB Atlas · Vercel',
+    href: 'https://selfrate.vercel.app',
+    art: 'mobile',
+  },
+  {
+    id: 'adspective',
+    title: 'Adspective Dashboard',
+    blurb: 'Campaign analytics and ads operations UI',
+    tools: 'Vue.js · TypeScript · REST APIs · Vercel',
+    href: 'https://adspective-dashboard.vercel.app',
+    art: 'charts',
+  },
+  {
     id: 'ecommerce',
     title: 'E-Commerce Platform',
     blurb: 'Catalog, cart, checkout, and Razorpay payments',
@@ -33,26 +49,10 @@ export const projects = [
     art: 'shop',
   },
   {
-    id: 'campaigns',
-    title: 'Campaign Analytics',
-    blurb: 'Campaign management dashboards and reporting UIs',
-    tools: 'React · Next.js · TypeScript · Redux Toolkit',
-    href: '#contact',
-    art: 'charts',
-  },
-  {
     id: 'mobile',
     title: 'Cross-Platform Apps',
     blurb: 'Responsive mobile experiences with React Native',
     tools: 'React Native · Expo · TypeScript',
-    href: '#contact',
-    art: 'mobile',
-  },
-  {
-    id: 'dashboards',
-    title: 'Data Visualization',
-    blurb: 'Dashboard modules and complex forms for analytics',
-    tools: 'React · TypeScript · Tailwind CSS',
     href: '#contact',
     art: 'viz',
   },

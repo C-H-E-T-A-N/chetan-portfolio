@@ -6,8 +6,17 @@ export default function Projects() {
     <section className="projects" id="projects">
       <h2>Projects</h2>
       <div className="project-grid">
-        {projects.map((project) => (
-          <a className="project-card" key={project.id} href={project.href}>
+        {projects.map((project) => {
+          const external = project.href.startsWith('http')
+          return (
+          <a
+            className="project-card"
+            key={project.id}
+            href={project.href}
+            {...(external
+              ? { target: '_blank', rel: 'noreferrer noopener' }
+              : {})}
+          >
             <div className="project-media">
               <ProjectArt type={project.art} />
               <div className="project-overlay">
@@ -22,7 +31,8 @@ export default function Projects() {
               <ArrowIcon />
             </div>
           </a>
-        ))}
+          )
+        })}
       </div>
     </section>
   )
