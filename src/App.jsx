@@ -1,4 +1,5 @@
 import Contact from './components/Contact.jsx'
+import Education from './components/Education.jsx'
 import Experience from './components/Experience.jsx'
 import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
@@ -16,6 +17,7 @@ export default function App() {
           <Hero />
           <SkillsRing />
           <Experience />
+          <Education />
           <Projects />
           <Contact />
         </main>

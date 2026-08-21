@@ -44,6 +44,73 @@ body {
   z-index: 1;
 }
 
+.site-content::before,
+.site-content::after {
+  content: '';
+  position: fixed;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: ambient-drift 18s ease-in-out infinite alternate;
+}
+
+.site-content::before {
+  top: -8rem;
+  left: -6rem;
+  background: radial-gradient(circle, rgba(255, 134, 96, 0.45), transparent 68%);
+}
+
+.site-content::after {
+  right: -8rem;
+  bottom: 10%;
+  background: radial-gradient(circle, rgba(91, 173, 255, 0.38), transparent 68%);
+  animation-delay: -7s;
+}
+
+@keyframes ambient-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(4%, 6%, 0) scale(1.12);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes badge-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px var(--color),
+      0 0 22px color-mix(in srgb, var(--color) 80%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 16px var(--color),
+      0 0 32px color-mix(in srgb, var(--color) 70%, transparent);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .spider-cursor {
   position: fixed;
   top: 0;
@@ -101,8 +168,9 @@ button {
   justify-content: space-between;
   gap: 1rem;
   padding: 1.5rem 6vw 1rem;
-  background: #000000e6;
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .signature {
@@ -162,6 +230,7 @@ button {
   padding: 2.5rem 6vw 4rem;
   max-width: 920px;
   margin: 0 auto;
+  animation: rise-in 0.8s ease both;
 }
 
 .memoji {
@@ -190,6 +259,7 @@ button {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  filter: drop-shadow(0 0 18px rgba(212, 75, 154, 0.35));
 }
 
 .hero-sub {
@@ -221,19 +291,60 @@ button {
 .btn-solid {
   background: #fff;
   color: #000;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
 }
 
 .btn-outline {
-  border: 1px solid #fff;
+  border: 1px solid rgba(255, 255, 255, 0.7);
   color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .btn-solid:hover {
-  opacity: 0.88;
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgba(255, 134, 96, 0.35);
 }
 
 .btn-outline:hover {
-  background: #ffffff14;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 24px rgba(91, 173, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.hero-socials {
+  display: flex;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1.35rem;
+}
+
+.hero-socials a {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-socials svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.hero-socials a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 134, 96, 0.7);
+  box-shadow: 0 0 18px rgba(255, 134, 96, 0.35);
 }
 
 .skills {
@@ -251,17 +362,49 @@ button {
   margin-bottom: 1.25rem;
 }
 
-.skills-stage {
-  width: min(58rem, 100%);
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 1.5rem;
+  width: min(72rem, 100%);
   margin: 0 auto;
-  padding: 1.5rem 7.5rem 2.5rem;
+}
+
+.skills-card {
+  animation: rise-in 0.7s ease both;
+}
+
+.skills-card:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.skills-card:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.skills-card:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.skills-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.skills-caption {
+  color: var(--dim);
+  font-size: 0.85rem;
+  margin: 0.35rem 0 0.75rem;
 }
 
 .skills-hub {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  max-width: 42rem;
+  max-width: 28rem;
   margin: 0 auto;
 }
 
@@ -282,7 +425,7 @@ button {
   width: 42%;
   height: 42%;
   transform: translate(-50%, -50%);
-  border: 1.5px solid rgba(255, 255, 255, 0.38);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -290,8 +433,15 @@ button {
   justify-content: center;
   gap: 0.7rem;
   padding: 1.1rem 1.35rem;
-  background: radial-gradient(circle at center, #141414 0%, #000 72%);
-  box-shadow: 0 0 28px rgba(255, 255, 255, 0.04);
+  background: radial-gradient(circle at center, rgba(40, 40, 40, 0.75) 0%, rgba(0, 0, 0, 0.88) 72%);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 32px rgba(255, 134, 96, 0.12), inset 0 0 24px rgba(255, 255, 255, 0.04);
+}
+
+.skills-core strong {
+  font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .skills-code {
@@ -333,12 +483,9 @@ button {
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background: #000;
+  background: rgba(0, 0, 0, 0.72);
   border: 1px solid color-mix(in srgb, var(--color) 55%, #000);
-  box-shadow:
-    0 0 10px var(--color),
-    0 0 22px color-mix(in srgb, var(--color) 80%, transparent),
-    0 0 40px color-mix(in srgb, var(--color) 45%, transparent);
+  animation: badge-pulse 3.6s ease-in-out infinite;
 }
 
 .skill-badge svg {
@@ -411,12 +558,14 @@ button {
 #home,
 #projects,
 #experience,
+#education,
 #contact {
   scroll-margin-top: 5rem;
 }
 
 .projects,
 .experience,
+.education,
 .contact {
   padding: 2rem 8vw 4rem;
   max-width: 1120px;
@@ -425,6 +574,7 @@ button {
 
 .projects h2,
 .experience h2,
+.education h2,
 .contact h2 {
   text-align: center;
   font-size: clamp(2rem, 4vw, 2.75rem);
@@ -440,6 +590,10 @@ button {
 
 .experience h2 {
   color: var(--blue);
+}
+
+.education h2 {
+  color: #c084fc;
 }
 
 .contact h2 {
@@ -464,7 +618,16 @@ button {
   border-radius: 18px;
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  background: #151515;
+  background: rgba(21, 21, 21, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.project-card:hover .project-media {
+  transform: translateY(-4px);
+  border-color: rgba(255, 134, 96, 0.45);
+  box-shadow: 0 16px 48px rgba(255, 134, 96, 0.18);
 }
 
 .project-thumb {
@@ -512,6 +675,134 @@ button {
 
 .project-card:hover .project-meta svg {
   color: var(--orange);
+}
+
+.timeline {
+  position: relative;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 1.15rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  background: linear-gradient(180deg, var(--blue), #c084fc, var(--orange));
+  box-shadow: 0 0 14px rgba(91, 173, 255, 0.45);
+  border-radius: 2px;
+}
+
+.timeline--edu::before {
+  background: linear-gradient(180deg, #c084fc, var(--orange));
+  box-shadow: 0 0 14px rgba(192, 132, 252, 0.4);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 2rem 4.1rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 0.72rem;
+  top: 1.35rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50%;
+  background: #000;
+  border: 2px solid var(--blue);
+  box-shadow: 0 0 16px rgba(91, 173, 255, 0.8);
+  z-index: 1;
+}
+
+.timeline--edu .timeline-dot {
+  border-color: #c084fc;
+  box-shadow: 0 0 16px rgba(192, 132, 252, 0.8);
+}
+
+.timeline-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.2rem 1.3rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px) saturate(140%);
+  animation: rise-in 0.7s ease both;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 36px rgba(91, 173, 255, 0.12);
+}
+
+.exp-points {
+  margin: 0.7rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.exp-points li {
+  color: var(--muted);
+  padding-left: 0.9rem;
+  position: relative;
+}
+
+.exp-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 8px var(--orange);
+}
+
+.exp-at {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.edu-school {
+  color: #fff !important;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.metric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--dim);
+  font-size: 0.78rem;
+}
+
+.metric strong {
+  color: #fff;
+  font-size: 0.85rem;
 }
 
 .exp-list {
@@ -632,8 +923,14 @@ button {
 
   .projects,
   .experience,
+  .education,
   .contact {
     padding-inline: 6vw;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .skills {
@@ -821,5 +1118,18 @@ button {
   .btn-solid,
   .btn-outline {
     width: 100%;
+  }
+
+  .timeline-card {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

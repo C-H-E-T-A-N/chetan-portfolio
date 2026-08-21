@@ -1,4 +1,5 @@
 import { profile } from '../data.js'
+import { GithubIcon, LinkedinIcon, MailIcon, PhoneIcon } from './Icons.jsx'
 import Memoji from './Memoji.jsx'
 
 export default function Hero() {
@@ -15,6 +16,20 @@ export default function Hero() {
         </a>
         <a className="btn-outline" href={profile.resume} target="_blank" rel="noreferrer">
           Download CV
+        </a>
+      </div>
+      <div className="hero-socials">
+        <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <LinkedinIcon />
+        </a>
+        <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+          <GithubIcon />
+        </a>
+        <a href={`mailto:${profile.email}`} aria-label="Email">
+          <MailIcon />
+        </a>
+        <a href={profile.phoneHref} aria-label="Phone">
+          <PhoneIcon />
         </a>
       </div>
     </section>
